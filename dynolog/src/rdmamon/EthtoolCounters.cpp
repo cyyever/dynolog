@@ -12,8 +12,8 @@
 #include "secure_lib/secure_string.h"
 #endif // FBCODE
 
-namespace dynolog {
-namespace rdmamon {
+
+namespace dynolog::rdmamon {
 
 bool EthtoolCounters::setupEthtoolCounters() {
   const std::vector<std::string> eth_counter_names_ = {
@@ -39,10 +39,10 @@ bool EthtoolCounters::sampleEthtoolCounters(
   }
 
   if (!first_sample_) {
-    for (auto it = eth_counters_.begin(); it != eth_counters_.end(); it++) {
+    for (auto & eth_counter : eth_counters_) {
       int64_t diff =
-          cur_eth_stats_->data[it->second] - prev_eth_stats_->data[it->second];
-      const auto key = fmt::format("{}.{}", ifname_, it->first);
+          cur_eth_stats_->data[eth_counter.second] - prev_eth_stats_->data[eth_counter.second];
+      const auto key = fmt::format("{}.{}", ifname_, eth_counter.first);
       countersMap[key] = diff;
     }
   }
@@ -62,5 +62,5 @@ bool EthtoolCounters::sampleEthtoolCounters(
   return true;
 }
 
-} // namespace rdmamon
-} // namespace dynolog
+} // namespace dynolog::rdmamon
+
