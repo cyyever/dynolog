@@ -1,5 +1,5 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
-cmake_minimum_required(VERSION 3.16 LANGUAGE CXX)
+cmake_minimum_required(VERSION 3.16)
 
 cmake_policy(SET CMP0079 NEW)
 project(Dynolog VERSION 1.0 LANGUAGES CXX)
