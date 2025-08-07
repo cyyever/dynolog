@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <stdexcept>
 
+#include <cstddef>
 #include <cstring>
 #include <memory>
 #include <string>
@@ -241,7 +242,7 @@ class EndPoint final {
   auto buildCtxt_(const std::vector<Payload>& payload, unsigned num_fds) {
     auto ctxt = std::make_unique<TCtxt>(payload.size());
     memset(&ctxt->msghdr, 0, sizeof(decltype(ctxt->msghdr)));
-    for (int i = 0; i < payload.size(); i++) {
+    for (size_t i = 0; i < payload.size(); i++) {
       ctxt->iov[i] = {payload[i].data, payload[i].size};
     }
     ctxt->msghdr.msg_name = &ctxt->msg_name;
