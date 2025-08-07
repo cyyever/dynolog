@@ -147,7 +147,7 @@ std::vector<double> CPUTimeMonitor::getRawCPUCoresUsage(
 std::optional<MetricFrameMap> CPUTimeMonitor::getMetricFrame(
     Granularity gran,
     DataSource dataSource) {
-  int level;
+  int level = 0;
   switch (gran) {
     case Granularity::MINUTE:
       level = IDX_MIN;
@@ -292,7 +292,7 @@ std::optional<uint64_t> CPUTimeMonitor::readCgroupCpuStat(
     return std::nullopt;
   }
 
-  unsigned long long usage;
+  unsigned long long usage = 0;
   int num = sscanf(buf, "%*s %Lu", &usage);
   if (num != 1) {
     LOG(ERROR) << "Error parsing " << path;
@@ -332,7 +332,7 @@ std::vector<uint64_t> CPUTimeMonitor::readProcStat(bool read_per_core) {
       LOG(ERROR) << "Error reading /proc/stat";
       return std::nullopt;
     }
-    unsigned long long idle;
+    unsigned long long idle = 0;
     int num = 0;
     num = sscanf(buf, "%*s %*s %*s %*s %Lu", &idle);
     if (num != 1) {
